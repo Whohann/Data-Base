@@ -27,6 +27,7 @@ $result = executeQuery($query);
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -34,6 +35,16 @@ $result = executeQuery($query);
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-T3cDXmhGwDnu6r0+t8LElQsnILQp65399gMf1pqYq46nzM2LKbNBnxflEQ9ICJ" crossorigin="anonymous">
   <style>
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    a:hover {
+      color: #3b82f6;
+      text-decoration: underline;
+    }
+
     body {
       background-color: #f0f8ff;
       font-family: Arial, sans-serif;
@@ -99,6 +110,7 @@ $result = executeQuery($query);
     }
   </style>
 </head>
+
 <body>
   <nav class="navbar">
     <h1 class="navbar-brand">J Arts</h1>
@@ -127,23 +139,29 @@ $result = executeQuery($query);
     <?php
     if ($result->num_rows > 0) {
       while ($userInfo = mysqli_fetch_assoc($result)) {
-    ?>
-    <div class="userInfoContainer">
-      <h2>User Information</h2>
-      <p><strong>User ID:</strong> <?php echo htmlspecialchars($userInfo['userInfoID']); ?></p>
-      <p><strong>First Name:</strong> <?php echo htmlspecialchars($userInfo['firstName']); ?></p>
-      <p><strong>Last Name:</strong> <?php echo htmlspecialchars($userInfo['lastName']); ?></p>
-      <p><strong>Birthdate:</strong> <?php echo htmlspecialchars($userInfo['birthDate']); ?></p>
+        ?>
+        <div class="userInfoContainer">
+          <h2>User Information</h2>
+          <p><strong>User ID:</strong> <?php echo htmlspecialchars($userInfo['userInfoID']); ?></p>
+          <p><strong>First Name:</strong> <?php echo htmlspecialchars($userInfo['firstName']); ?></p>
+          <p><strong>Last Name:</strong> <?php echo htmlspecialchars($userInfo['lastName']); ?></p>
+          <p><strong>Birthdate:</strong> <?php echo htmlspecialchars($userInfo['birthDate']); ?></p>
 
-      <form action="" method="POST">
-        <input type="hidden" name="userId" value="<?php echo $userInfo['userInfoID']; ?>">
-        <input type="text" name="updatedFirstName" value="<?php echo htmlspecialchars($userInfo['firstName']); ?>" required>
-        <input type="text" name="updatedLastName" value="<?php echo htmlspecialchars($userInfo['lastName']); ?>" required>
-        <input type="date" name="updatedBirthDate" value="<?php echo htmlspecialchars($userInfo['birthDate']); ?>" required>
-        <button type="submit" class="btn btn-primary" name="btnUpdateUser">Update User</button>
-      </form>
-    </div>
-    <?php
+          <form action="" method="POST">
+            <input type="hidden" name="userId" value="<?php echo $userInfo['userInfoID']; ?>">
+            <input type="text" name="updatedFirstName" value="<?php echo htmlspecialchars($userInfo['firstName']); ?>"
+              required>
+            <input type="text" name="updatedLastName" value="<?php echo htmlspecialchars($userInfo['lastName']); ?>"
+              required>
+            <input type="date" name="updatedBirthDate" value="<?php echo htmlspecialchars($userInfo['birthDate']); ?>"
+              required>
+            <button type="submit" class="btn btn-primary" name="btnUpdateUser">Update User</button>
+          </form>
+
+          <a href="view.php?id=<?php echo $userInfo['userInfoID']; ?>" class="btn btn-info">View</a>
+
+        </div>
+        <?php
       }
     } else {
       echo "<p>No user information found.</p>";
@@ -151,6 +169,8 @@ $result = executeQuery($query);
     ?>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
 </body>
+
 </html>
